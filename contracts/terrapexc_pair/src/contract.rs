@@ -18,6 +18,27 @@ use classic_terrapexc::pair::{
 use classic_terrapexc::querier::query_token_info;
 use classic_terrapexc::token::InstantiateMsg as TokenInstantiateMsg;
 use cosmwasm_bignumber::{Decimal256, Uint256};
+use cw2::set_contract_version;
+use cw20::{Cw20ExecuteMsg, Cw20ReceiveMsg, MinterResponse};
+use integer_sqrt::IntegerSquareRoot;
+use protobuf::Message;
+use std::cmp::Ordering;
+use std::str::FromStr;
+
+// version info for migration info
+const CONTRACT_NAME: &str = "crates.io:terrapexc-pair";
+const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
+
+const INSTANTIATE_REPLY_ID: u64 = 1;
+
+/// Commission rate == 0.3%
+/// Liquidity Pool: 0.22%
+/// Treasury: 0.08%
+const COMMISSION_RATE: &str = "0.003";
+const TREASURY_RATE: &str = "0.2667"; // 0.08 / 0.3 = 26.67%
+#[cfg_attr(not(feature = "library"), entry_point)]
+pub fn instantiate(
+    deps: DepsMut,
     env: Env,
     info: MessageInfo,
     msg: InstantiateMsg,
