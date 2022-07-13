@@ -3,6 +3,12 @@ name = "terrapexc-router"
 version = "0.1.0"
 authors = ["TERRAPEXC Labs."]
 edition = "2021"
+description = "A Terrapexc router contract - provides multi-step operations to facilitate single sign operation"
+license = "Apache-2.0"
+
+exclude = [
+  # Those files are rust-optimizer artifacts. You might want to commit them for convenience but they should not be part of the source code publication.
+  "contract.wasm",
   "hash.txt",
 ]
 
