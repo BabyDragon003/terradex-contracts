@@ -3,16 +3,11 @@ use classic_terrapexc::querier::{query_balance, query_pair_info_from_pair};
 use cosmwasm_std::entry_point;
 use cosmwasm_std::{
     to_binary, Addr, Binary, CosmosMsg, Deps, DepsMut, Env, MessageInfo, Reply, ReplyOn, Response,
-    add_allow_native_token, pair_key, read_pairs, Config, TmpPairInfo, ALLOW_NATIVE_TOKENS, CONFIG,
-    PAIRS, TMP_PAIR_INFO,
+    StdError, StdResult, SubMsg, WasmMsg,
 };
+use cw2::set_contract_version;
 
-use classic_terrapexc::asset::{AssetInfo, PairInfo, PairInfoRaw};
-use classic_terrapexc::factory::{
-    ConfigResponse, ExecuteMsg, InstantiateMsg, MigrateMsg, NativeTokenDecimalsResponse,
-    PairsResponse, QueryMsg,
-};
-use classic_terrapexc::pair::{InstantiateMsg as PairInstantiateMsg, MigrateMsg as PairMigrateMsg};
+use crate::response::MsgInstantiateContractResponse;
 use protobuf::Message;
 
 // version info for migration info
