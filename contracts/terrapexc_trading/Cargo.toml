@@ -1,13 +1,8 @@
+[package]
 authors = ["TERRAPEXC Labs."]
 description = "A Terrapexc Trading contract"
 edition = "2021"
 license = "MIT"
-name = "terrapexc-trading"
-version = "0.0.0"
-
-exclude = [
-  # Those files are rust-optimizer artifacts. You might want to commit them for convenience but they should not be part of the source code publication.
-  "contract.wasm",
   "hash.txt",
 ]
 
