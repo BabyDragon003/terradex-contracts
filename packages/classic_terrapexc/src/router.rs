@@ -23,32 +23,6 @@ pub enum SwapOperation {
         ask_asset_info: AssetInfo,
     },
 }
-
-impl SwapOperation {
-    pub fn get_target_asset_info(&self) -> AssetInfo {
-        match self {
-            SwapOperation::NativeSwap { ask_denom, .. } => AssetInfo::NativeToken {
-                denom: ask_denom.clone(),
-            },
-            SwapOperation::TerraPexc { ask_asset_info, .. } => ask_asset_info.clone(),
-        }
-    }
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
-#[serde(rename_all = "snake_case")]
-pub enum ExecuteMsg {
-    Receive(Cw20ReceiveMsg),
-    /// Execute multiple BuyOperation
-    ExecuteSwapOperations {
-        operations: Vec<SwapOperation>,
-        minimum_receive: Option<Uint128>,
-        to: Option<String>,
-    },
-
-    /// Internal use
-    /// Swap all offer tokens to ask token
-    ExecuteSwapOperation {
         operation: SwapOperation,
         to: Option<String>,
     },
