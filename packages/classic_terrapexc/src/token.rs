@@ -3,12 +3,6 @@ use serde::{Deserialize, Serialize};
 
 use cosmwasm_std::{StdError, StdResult, Uint128};
 use cw20::{Cw20Coin, MinterResponse};
-
-/// TokenContract InstantiateMsg
-#[derive(Serialize, Deserialize, JsonSchema)]
-pub struct InstantiateMsg {
-    pub name: String,
-    pub symbol: String,
     pub decimals: u8,
     pub initial_balances: Vec<Cw20Coin>,
     pub mint: Option<MinterResponse>,

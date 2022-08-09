@@ -3,12 +3,6 @@ use serde::{Deserialize, Serialize};
 use std::fmt;
 
 use crate::querier::{query_balance, query_native_decimals, query_token_balance, query_token_info};
-use cosmwasm_std::{
-    to_binary, Addr, Api, BankMsg, CanonicalAddr, Coin, CosmosMsg, Decimal, MessageInfo,
-    QuerierWrapper, StdError, StdResult, SubMsg, Uint128, WasmMsg,
-};
-use cw20::Cw20ExecuteMsg;
-use cw_storage_plus::PrimaryKey;
 use terra_cosmwasm::TerraQuerier;
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq, JsonSchema)]
@@ -23,6 +17,32 @@ impl fmt::Display for Asset {
     }
 }
 
+static DECIMAL_FRACTION: Uint128 = Uint128::new(1_000_000_000_000_000_000u128);
+
+impl Asset {
+    pub fn is_native_token(&self) -> bool {
+        self.info.is_native_token()
+    }
+
+    pub fn compute_tax(&self, querier: &QuerierWrapper) -> StdResult<Uint128> {
+        let amount = self.amount;
+        if let AssetInfo::NativeToken { denom } = &self.info {
+            let terra_querier = TerraQuerier::new(querier);
+            let tax_rate: Decimal = (terra_querier.query_tax_rate()?).rate;
+            let tax_cap: Uint128 = (terra_querier.query_tax_cap(denom.to_string())?).cap;
+            Ok(std::cmp::min(
+                amount.checked_sub(amount.multiply_ratio(
+                    DECIMAL_FRACTION,
+                    DECIMAL_FRACTION * tax_rate + DECIMAL_FRACTION,
+                ))?,
+                tax_cap,
+            ))
+        } else {
+            Ok(Uint128::zero())
+        }
+    }
+
+    pub fn deduct_tax(&self, querier: &QuerierWrapper) -> StdResult<Coin> {
         let amount = self.amount;
         if let AssetInfo::NativeToken { denom } = &self.info {
             Ok(Coin {
