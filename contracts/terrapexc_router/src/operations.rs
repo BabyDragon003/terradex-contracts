@@ -8,6 +8,17 @@ use crate::state::{Config, CONFIG};
 
 use classic_terrapexc::asset::{Asset, AssetInfo, PairInfo};
 use classic_terrapexc::pair::ExecuteMsg as PairExecuteMsg;
+use classic_terrapexc::querier::{query_balance, query_pair_info, query_token_balance};
+use classic_terrapexc::router::SwapOperation;
+use cw20::Cw20ExecuteMsg;
+use terra_cosmwasm::{create_swap_msg, create_swap_send_msg, TerraMsgWrapper};
+
+/// Execute swap operation
+/// swap all offer asset to ask asset
+pub fn execute_swap_operation(
+    deps: DepsMut,
+    env: Env,
+    info: MessageInfo,
     operation: SwapOperation,
     to: Option<String>,
 ) -> StdResult<Response<TerraMsgWrapper>> {
