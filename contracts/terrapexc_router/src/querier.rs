@@ -1,4 +1,3 @@
-use cosmwasm_bignumber::{Decimal256, Uint256};
 use cosmwasm_std::{Decimal, QuerierWrapper, StdResult, Uint128};
 use std::ops::Mul;
 use terra_cosmwasm::TerraQuerier;
