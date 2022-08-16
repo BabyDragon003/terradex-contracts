@@ -1,13 +1,8 @@
+[package]
 name = "terrapexc-token"
 version = "0.0.0"
 authors = ["TERRAPEXC Labs."]
 edition = "2021"
-description = "Backward compatible implementation of a CosmWasm-20 compliant token"
-license = "MIT"
-repository = "https://github.com/terrapexc"
-homepage = "https://terrapexc.com"
-documentation = "https://docs.cosmwasm.com"
-
 [lib]
 crate-type = ["cdylib", "rlib"]
 
