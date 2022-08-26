@@ -8,26 +8,16 @@ use cosmwasm_std::{
 
 use crate::error::ContractError;
 use crate::response::MsgInstantiateContractResponse;
-use cw20::{Cw20ExecuteMsg, Cw20ReceiveMsg, MinterResponse};
-use integer_sqrt::IntegerSquareRoot;
-use protobuf::Message;
-use std::cmp::Ordering;
-use std::str::FromStr;
+use crate::state::{Config, CONFIG, PAIR_INFO};
 
-// version info for migration info
-const CONTRACT_NAME: &str = "crates.io:terrapexc-pair";
-const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
-
-const INSTANTIATE_REPLY_ID: u64 = 1;
-
-/// Commission rate == 0.3%
-/// Liquidity Pool: 0.22%
-/// Treasury: 0.08%
-const COMMISSION_RATE: &str = "0.003";
-const TREASURY_RATE: &str = "0.2667"; // 0.08 / 0.3 = 26.67%
-#[cfg_attr(not(feature = "library"), entry_point)]
-pub fn instantiate(
-    deps: DepsMut,
+use classic_terrapexc::asset::{Asset, AssetInfo, PairInfo, PairInfoRaw};
+use classic_terrapexc::pair::{
+    Cw20HookMsg, ExecuteMsg, InstantiateMsg, MigrateMsg, PoolResponse, QueryMsg,
+    ReverseSimulationResponse, SimulationResponse,
+};
+use classic_terrapexc::querier::query_token_info;
+use classic_terrapexc::token::InstantiateMsg as TokenInstantiateMsg;
+use cosmwasm_bignumber::{Decimal256, Uint256};
     env: Env,
     info: MessageInfo,
     msg: InstantiateMsg,
