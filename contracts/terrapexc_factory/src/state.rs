@@ -1,4 +1,3 @@
-use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
 use classic_terrapexc::asset::{AssetInfoRaw, PairInfo, PairInfoRaw};
@@ -18,6 +17,27 @@ pub const CONFIG: Item<Config> = Item::new("config");
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq, JsonSchema)]
 pub struct TmpPairInfo {
     pub pair_key: Vec<u8>,
+    pub asset_infos: [AssetInfoRaw; 2],
+    pub asset_decimals: [u8; 2],
+}
+
+pub const TMP_PAIR_INFO: Item<TmpPairInfo> = Item::new("tmp_pair_info");
+pub const PAIRS: Map<&[u8], PairInfoRaw> = Map::new("pair_info");
+
+pub fn pair_key(asset_infos: &[AssetInfoRaw; 2]) -> Vec<u8> {
+    let mut asset_infos = asset_infos.to_vec();
+    asset_infos.sort_by(|a, b| a.as_bytes().cmp(b.as_bytes()));
+
+    [asset_infos[0].as_bytes(), asset_infos[1].as_bytes()].concat()
+}
+
+// settings for pagination
+const MAX_LIMIT: u32 = 30;
+const DEFAULT_LIMIT: u32 = 10;
+pub fn read_pairs(
+    storage: &dyn Storage,
+    api: &dyn Api,
+    start_after: Option<[AssetInfoRaw; 2]>,
     limit: Option<u32>,
 ) -> StdResult<Vec<PairInfo>> {
     let limit = limit.unwrap_or(DEFAULT_LIMIT).min(MAX_LIMIT) as usize;
