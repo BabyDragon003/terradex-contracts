@@ -8,6 +8,17 @@ use cosmwasm_std::{
 use cw2::set_contract_version;
 
 use crate::response::MsgInstantiateContractResponse;
+use crate::state::{
+    add_allow_native_token, pair_key, read_pairs, Config, TmpPairInfo, ALLOW_NATIVE_TOKENS, CONFIG,
+    PAIRS, TMP_PAIR_INFO,
+};
+
+use classic_terrapexc::asset::{AssetInfo, PairInfo, PairInfoRaw};
+use classic_terrapexc::factory::{
+    ConfigResponse, ExecuteMsg, InstantiateMsg, MigrateMsg, NativeTokenDecimalsResponse,
+    PairsResponse, QueryMsg,
+};
+use classic_terrapexc::pair::{InstantiateMsg as PairInstantiateMsg, MigrateMsg as PairMigrateMsg};
 use protobuf::Message;
 
 // version info for migration info
