@@ -3,15 +3,10 @@
 
 // https://github.com/rust-lang/rust-clippy/issues/702
 #![allow(unknown_lints)]
-#![allow(dead_code)]
-#![allow(missing_docs)]
-#![allow(non_camel_case_types)]
-#![allow(non_snake_case)]
-#![allow(non_upper_case_globals)]
-#![allow(trivial_casts)]
-#![allow(unused_imports)]
-#![allow(unused_results)]
-//! Generated file from `src/response.proto`
+#![allow(clippy::all)]
+
+#![allow(unused_attributes)]
+#![cfg_attr(rustfmt, rustfmt::skip)]
 
 /// Generated files are compatible only with the same version
 /// of protobuf runtime.
