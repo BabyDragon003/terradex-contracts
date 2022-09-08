@@ -8,6 +8,17 @@ use classic_terrapexc::mock_querier::mock_dependencies;
 use classic_terrapexc::asset::{Asset, AssetInfo, PairInfo};
 use classic_terrapexc::pair::{
     Cw20HookMsg, ExecuteMsg, InstantiateMsg, PoolResponse, ReverseSimulationResponse,
+    SimulationResponse,
+};
+use classic_terrapexc::token::InstantiateMsg as TokenInstantiateMsg;
+use cosmwasm_std::testing::{mock_env, mock_info, MOCK_CONTRACT_ADDR};
+use cosmwasm_std::{
+    attr, to_binary, Addr, BankMsg, Coin, ContractResult, CosmosMsg, Decimal, Reply, ReplyOn,
+    Response, StdError, SubMsg, SubMsgExecutionResponse, Uint128, WasmMsg,
+};
+use cw20::{Cw20ExecuteMsg, Cw20ReceiveMsg, MinterResponse};
+
+#[test]
 fn proper_initialization() {
     let mut deps = mock_dependencies(&[]);
 
