@@ -1,4 +1,3 @@
-use crate::contract::{execute, instantiate, query, reply};
 use classic_terrapexc::mock_querier::{mock_dependencies, WasmMockQuerier};
 
 use crate::state::{pair_key, TmpPairInfo, TMP_PAIR_INFO};
