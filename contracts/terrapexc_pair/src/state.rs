@@ -1,4 +1,3 @@
-use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
 use classic_terrapexc::asset::PairInfoRaw;
