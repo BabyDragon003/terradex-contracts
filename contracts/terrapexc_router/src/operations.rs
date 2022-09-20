@@ -1,3 +1,4 @@
+use cosmwasm_std::{
     to_binary, Addr, Coin, CosmosMsg, Decimal, Deps, DepsMut, Env, MessageInfo, Response, StdError,
     StdResult, WasmMsg,
 };
