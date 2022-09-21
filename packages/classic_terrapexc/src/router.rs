@@ -3,16 +3,11 @@ use serde::{Deserialize, Serialize};
 
 use cosmwasm_std::Uint128;
 use cw20::Cw20ReceiveMsg;
-}
+
+use crate::asset::AssetInfo;
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq, JsonSchema)]
-#[serde(rename_all = "snake_case")]
-pub enum SwapOperation {
-    NativeSwap {
-        offer_denom: String,
-        ask_denom: String,
-    },
-    TerraPexc {
+pub struct InstantiateMsg {
         offer_asset_info: AssetInfo,
         ask_asset_info: AssetInfo,
     },
