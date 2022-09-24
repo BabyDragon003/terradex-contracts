@@ -23,30 +23,4 @@ debug = false
 rpath = false
 lto = true
 debug-assertions = false
-codegen-units = 1
-panic = 'abort'
-incremental = false
-overflow-checks = true
-
-[features]
-# for quicker tests, cargo test --lib
-# for more explicit tests, cargo test --features=backtraces
-backtraces = ["cosmwasm-std/backtraces"]
-
-[dependencies]
-cw2 = { version = "0.8.0" } 
-cw20 = { version = "0.8.0" } 
-cosmwasm-std = { version = "0.16.7" }
-cw-storage-plus = { version = "0.8.0" } 
-integer-sqrt = "0.1.5"
-schemars = "0.8.1"
-serde = { version = "1.0.103", default-features = false, features = ["derive"] }
-thiserror = { version = "1.0.20" }
-protobuf = { version = "2", features = ["with-bytes"] }
-cosmwasm-bignumber = "2.2.0"
-classic_terrapexc = { path = "../../packages/classic_terrapexc", default-features = false, version = "2.6.1"}
-
-[dev-dependencies]
-cosmwasm-schema = "0.16.0"
-terra-cosmwasm = { version = "2.2.0" }
 cosmwasm-storage = { version = "0.16.0" }
