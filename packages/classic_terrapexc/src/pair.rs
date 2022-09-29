@@ -1,3 +1,4 @@
+use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
 use crate::asset::{Asset, AssetInfo};
@@ -12,22 +13,6 @@ pub struct InstantiateMsg {
     /// Token contract code id for initialization
     pub token_code_id: u64,
     pub asset_decimals: [u8; 2],
-    pub owner: String,
-    pub treasury: String,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
-#[serde(rename_all = "snake_case")]
-pub enum ExecuteMsg {
-    Receive(Cw20ReceiveMsg),
-    UpdateConfig {
-        owner: Option<String>,
-        treasury: Option<String>,
-    },
-    /// ProvideLiquidity a user provides pool liquidity
-    ProvideLiquidity {
-        assets: [Asset; 2],
-        slippage_tolerance: Option<Decimal>,
         receiver: Option<String>,
     },
     /// Swap an offer asset to the other

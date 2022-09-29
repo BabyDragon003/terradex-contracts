@@ -1,3 +1,4 @@
+[package]
 name = "terrapexc-router"
 version = "0.1.0"
 authors = ["TERRAPEXC Labs."]
