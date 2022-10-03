@@ -1,4 +1,3 @@
-use classic_terrapexc::querier::{query_balance, query_pair_info_from_pair};
 #[cfg(not(feature = "library"))]
 use cosmwasm_std::entry_point;
 use cosmwasm_std::{
@@ -23,6 +22,32 @@ use protobuf::Message;
 
 // version info for migration info
 const CONTRACT_NAME: &str = "crates.io:terrapexc-factory";
+const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
+
+#[cfg_attr(not(feature = "library"), entry_point)]
+pub fn instantiate(
+    deps: DepsMut,
+    _env: Env,
+    info: MessageInfo,
+    msg: InstantiateMsg,
+) -> StdResult<Response> {
+    set_contract_version(deps.storage, CONTRACT_NAME, CONTRACT_VERSION)?;
+
+    let treasury = deps.api.addr_validate(&msg.treasury)?;
+
+    let config = Config {
+        owner: deps.api.addr_canonicalize(info.sender.as_str())?,
+        token_code_id: msg.token_code_id,
+        pair_code_id: msg.pair_code_id,
+        treasury: treasury.clone(),
+    };
+
+    CONFIG.save(deps.storage, &config)?;
+
+    Ok(Response::new())
+}
+
+#[cfg_attr(not(feature = "library"), entry_point)]
 pub fn execute(deps: DepsMut, env: Env, info: MessageInfo, msg: ExecuteMsg) -> StdResult<Response> {
     match msg {
         ExecuteMsg::UpdateConfig {
