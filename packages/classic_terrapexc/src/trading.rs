@@ -1,3 +1,4 @@
+use crate::asset::AssetInfo;
 use cosmwasm_std::{Addr, Uint128};
 use cw20::Cw20ReceiveMsg;
 use schemars::JsonSchema;
@@ -7,17 +8,6 @@ use serde::{Deserialize, Serialize};
 pub struct InstantiateMsg {
     pub pair_list: Vec<PairInfo>,
     pub enabled: bool,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
-pub struct TraderRecord {
-    pub id: String,
-    pub address: Addr,
-    pub pair_id: Uint128,
-    pub order_stock_amount: Uint128,
-    pub current_stock_amount: Uint128,
-    pub price: Uint128,
-    pub is_buy: bool,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]

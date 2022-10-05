@@ -1,3 +1,4 @@
+#[cfg(not(feature = "library"))]
 use cosmwasm_std::entry_point;
 
 use cosmwasm_std::{
@@ -7,17 +8,6 @@ use cosmwasm_std::{
 
 use crate::error::ContractError;
 use crate::response::MsgInstantiateContractResponse;
-use crate::state::{Config, CONFIG, PAIR_INFO};
-
-use classic_terrapexc::asset::{Asset, AssetInfo, PairInfo, PairInfoRaw};
-use classic_terrapexc::pair::{
-    Cw20HookMsg, ExecuteMsg, InstantiateMsg, MigrateMsg, PoolResponse, QueryMsg,
-    ReverseSimulationResponse, SimulationResponse,
-};
-use classic_terrapexc::querier::query_token_info;
-use classic_terrapexc::token::InstantiateMsg as TokenInstantiateMsg;
-use cosmwasm_bignumber::{Decimal256, Uint256};
-use cw2::set_contract_version;
 use cw20::{Cw20ExecuteMsg, Cw20ReceiveMsg, MinterResponse};
 use integer_sqrt::IntegerSquareRoot;
 use protobuf::Message;
