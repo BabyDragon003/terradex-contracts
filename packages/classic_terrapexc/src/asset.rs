@@ -3,26 +3,16 @@ use serde::{Deserialize, Serialize};
 use std::fmt;
 
 use crate::querier::{query_balance, query_native_decimals, query_token_balance, query_token_info};
+use cosmwasm_std::{
+    to_binary, Addr, Api, BankMsg, CanonicalAddr, Coin, CosmosMsg, Decimal, MessageInfo,
+    QuerierWrapper, StdError, StdResult, SubMsg, Uint128, WasmMsg,
+};
+use cw20::Cw20ExecuteMsg;
+use cw_storage_plus::PrimaryKey;
 use terra_cosmwasm::TerraQuerier;
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq, JsonSchema)]
 pub struct Asset {
-    pub info: AssetInfo,
-    pub amount: Uint128,
-}
-
-impl fmt::Display for Asset {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}{}", self.amount, self.info)
-    }
-}
-
-static DECIMAL_FRACTION: Uint128 = Uint128::new(1_000_000_000_000_000_000u128);
-
-impl Asset {
-    pub fn is_native_token(&self) -> bool {
-        self.info.is_native_token()
-    }
 
     pub fn compute_tax(&self, querier: &QuerierWrapper) -> StdResult<Uint128> {
         let amount = self.amount;
