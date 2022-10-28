@@ -23,6 +23,32 @@
 /// of protobuf runtime.
 // const _PROTOBUF_VERSION_CHECK: () = ::protobuf::VERSION_2_23_0;
 
+#[derive(PartialEq,Clone,Default)]
+pub struct MsgInstantiateContractResponse {
+    // message fields
+    pub contract_address: ::std::string::String,
+    pub data: ::std::vec::Vec<u8>,
+    // special fields
+    pub unknown_fields: ::protobuf::UnknownFields,
+    pub cached_size: ::protobuf::CachedSize,
+}
+
+impl<'a> ::std::default::Default for &'a MsgInstantiateContractResponse {
+    fn default() -> &'a MsgInstantiateContractResponse {
+        <MsgInstantiateContractResponse as ::protobuf::Message>::default_instance()
+    }
+}
+
+impl MsgInstantiateContractResponse {
+    pub fn new() -> MsgInstantiateContractResponse {
+        ::std::default::Default::default()
+    }
+
+    // string contract_address = 1;
+
+
+    pub fn get_contract_address(&self) -> &str {
+        &self.contract_address
     }
     pub fn clear_contract_address(&mut self) {
         self.contract_address.clear();
