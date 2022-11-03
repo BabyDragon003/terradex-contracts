@@ -8,16 +8,11 @@ use cosmwasm_std::{
     QuerierWrapper, StdError, StdResult, SubMsg, Uint128, WasmMsg,
 };
 use cw20::Cw20ExecuteMsg;
-        write!(f, "{}{}", self.amount, self.info)
-    }
-}
+use cw_storage_plus::PrimaryKey;
+use terra_cosmwasm::TerraQuerier;
 
-static DECIMAL_FRACTION: Uint128 = Uint128::new(1_000_000_000_000_000_000u128);
-
-impl Asset {
-    pub fn is_native_token(&self) -> bool {
-        self.info.is_native_token()
-    }
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq, JsonSchema)]
+pub struct Asset {
 
     pub fn compute_tax(&self, querier: &QuerierWrapper) -> StdResult<Uint128> {
         let amount = self.amount;

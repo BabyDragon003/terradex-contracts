@@ -8,6 +8,17 @@ use cw20::{BalanceResponse as CW20BalanceResponse, Cw20ExecuteMsg, Cw20QueryMsg,
 pub fn get_token_amount(
     querier: QuerierWrapper,
     denom: Denom,
+    contract_addr: Addr,
+) -> Result<Uint128, ContractError> {
+    match denom.clone() {
+        Denom::Native(native_str) => {
+            let native_response: NativeBalanceResponse =
+                querier.query(&QueryRequest::Bank(BankQuery::Balance {
+                    address: contract_addr.clone().into(),
+                    denom: native_str,
+                }))?;
+            return Ok(native_response.amount.amount);
+        }
         Denom::Cw20(cw20_address) => {
             let balance_response: CW20BalanceResponse =
                 querier.query(&QueryRequest::Wasm(WasmQuery::Smart {
