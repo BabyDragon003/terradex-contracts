@@ -1,4 +1,3 @@
-use crate::asset::{Asset, AssetInfo, AssetInfoRaw, AssetRaw, PairInfo};
 use crate::mock_querier::mock_dependencies;
 use crate::querier::{
     query_all_balances, query_balance, query_pair_info, query_token_balance, query_token_info,
@@ -18,6 +17,27 @@ fn token_balance_querier() {
     deps.querier.with_token_balances(&[(
         &"liquidity0000".to_string(),
         &[(&MOCK_CONTRACT_ADDR.to_string(), &Uint128::from(123u128))],
+    )]);
+
+    assert_eq!(
+        Uint128::from(123u128),
+        query_token_balance(
+            &deps.as_ref().querier,
+            Addr::unchecked("liquidity0000"),
+            Addr::unchecked(MOCK_CONTRACT_ADDR),
+        )
+        .unwrap()
+    );
+}
+
+#[test]
+fn balance_querier() {
+    let deps = mock_dependencies(&[Coin {
+        denom: "uusd".to_string(),
+        amount: Uint128::from(200u128),
+    }]);
+
+    assert_eq!(
         query_balance(
             &deps.as_ref().querier,
             Addr::unchecked(MOCK_CONTRACT_ADDR),
