@@ -3,6 +3,12 @@ use serde::{Deserialize, Serialize};
 
 use cosmwasm_std::Uint128;
 use cw20::Cw20ReceiveMsg;
+
+use crate::asset::AssetInfo;
+
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq, JsonSchema)]
+pub struct InstantiateMsg {
+    pub terrapexc_factory: String,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq, JsonSchema)]
