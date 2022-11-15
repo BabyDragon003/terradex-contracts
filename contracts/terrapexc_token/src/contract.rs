@@ -3,12 +3,6 @@ use cosmwasm_std::entry_point;
 use cosmwasm_std::{Binary, Deps, DepsMut, Env, MessageInfo, Response, StdError, StdResult};
 
 use cw2::set_contract_version;
-use cw20_base::{
-    contract::{create_accounts, execute as cw20_execute, query as cw20_query},
-    msg::{ExecuteMsg, QueryMsg},
-    state::{MinterData, TokenInfo, TOKEN_INFO},
-    ContractError,
-};
 
 use classic_terrapexc::token::InstantiateMsg;
 

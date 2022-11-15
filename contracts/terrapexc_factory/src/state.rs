@@ -3,12 +3,6 @@ use serde::{Deserialize, Serialize};
 
 use classic_terrapexc::asset::{AssetInfoRaw, PairInfo, PairInfoRaw};
 use cosmwasm_std::{Addr, Api, CanonicalAddr, Order, StdResult, Storage};
-use cw_storage_plus::{Bound, Item, Map};
-
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq, JsonSchema)]
-pub struct Config {
-    pub owner: CanonicalAddr,
-    pub pair_code_id: u64,
     pub token_code_id: u64,
     pub treasury: Addr,
 }
