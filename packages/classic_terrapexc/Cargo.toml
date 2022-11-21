@@ -1,4 +1,3 @@
-[package]
 authors = ["TERRAPEXC Labs"]
 description = "Common terrapexc types"
 documentation = "https://docs.terrapexc.io"
