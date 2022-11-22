@@ -1,13 +1,8 @@
+[package]
 name = "terrapexc-factory"
 version = "0.0.0"
 authors = ["TERRAPEXC Labs."]
 edition = "2021"
-description = "A Terrapexc factory contract - auto pair contract generator and also directory for all pairs"
-license = "MIT"
-
-exclude = [
-  # Those files are rust-optimizer artifacts. You might want to commit them for convenience but they should not be part of the source code publication.
-  "contract.wasm",
   "hash.txt",
 ]
 

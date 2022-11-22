@@ -1,13 +1,8 @@
+use classic_terrapexc::querier::{query_balance, query_pair_info_from_pair};
 #[cfg(not(feature = "library"))]
 use cosmwasm_std::entry_point;
 use cosmwasm_std::{
     to_binary, Addr, Binary, CosmosMsg, Deps, DepsMut, Env, MessageInfo, Reply, ReplyOn, Response,
-    StdError, StdResult, SubMsg, WasmMsg,
-};
-use cw2::set_contract_version;
-
-use crate::response::MsgInstantiateContractResponse;
-use crate::state::{
     add_allow_native_token, pair_key, read_pairs, Config, TmpPairInfo, ALLOW_NATIVE_TOKENS, CONFIG,
     PAIRS, TMP_PAIR_INFO,
 };
