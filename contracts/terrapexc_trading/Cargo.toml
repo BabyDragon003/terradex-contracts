@@ -3,16 +3,11 @@ authors = ["TERRAPEXC Labs."]
 description = "A Terrapexc Trading contract"
 edition = "2021"
 license = "MIT"
-  "hash.txt",
-]
+name = "terrapexc-trading"
+version = "0.0.0"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[lib]
-crate-type = ["cdylib", "rlib"]
-
-[profile.release]
-codegen-units = 1
+exclude = [
+  # Those files are rust-optimizer artifacts. You might want to commit them for convenience but they should not be part of the source code publication.
 debug = false
 debug-assertions = false
 incremental = false

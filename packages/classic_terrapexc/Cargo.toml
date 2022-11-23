@@ -3,6 +3,12 @@ authors = ["TERRAPEXC Labs"]
 description = "Common terrapexc types"
 documentation = "https://docs.terrapexc.io"
 edition = "2021"
+homepage = "https://terrapexc.com"
+license = "Apache-2.0"
+name = "classic_terrapexc"
+repository = "https://github.com/terrapexc"
+version = "2.6.1"
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [features]
