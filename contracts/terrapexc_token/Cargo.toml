@@ -13,6 +13,22 @@ documentation = "https://docs.cosmwasm.com"
 crate-type = ["cdylib", "rlib"]
 
 [features]
+backtraces = ["cosmwasm-std/backtraces"]
+# use library feature to disable all init/handle/query exports
+library = []
+
+[dependencies]
+cw0 = { version = "0.8.0" } 
+cw2 = { version = "0.8.0" } 
+cw20 = { version = "0.8.0" } 
+cw20-base = {version = "0.8.0", features = ["library"]}
+cw-storage-plus  = { version = "0.8.0" } 
+cosmwasm-std = { version = "0.16.7" }
+schemars = "0.8.1"
+serde = { version = "1.0.103", default-features = false, features = ["derive"] }
+thiserror = { version = "1.0.20" }
+classic_terrapexc = { path = "../../packages/classic_terrapexc", version = "2.5.2" }
+
 [dev-dependencies]
 # we only need to enable this if we use integration tests
 cosmwasm-schema = { version = "0.16.0" }
