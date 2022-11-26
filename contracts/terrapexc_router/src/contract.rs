@@ -18,6 +18,27 @@ use classic_terrapexc::router::{
     ConfigResponse, Cw20HookMsg, ExecuteMsg, InstantiateMsg, MigrateMsg, QueryMsg,
     SimulateSwapOperationsResponse, SwapOperation,
 };
+use cw20::Cw20ReceiveMsg;
+use std::collections::HashMap;
+use terra_cosmwasm::{SwapResponse, TerraMsgWrapper, TerraQuerier};
+
+// version info for migration info
+const CONTRACT_NAME: &str = "crates.io:terrapexc-router";
+const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
+
+#[cfg_attr(not(feature = "library"), entry_point)]
+pub fn instantiate(
+    deps: DepsMut,
+    _env: Env,
+    _info: MessageInfo,
+    msg: InstantiateMsg,
+) -> StdResult<Response> {
+    set_contract_version(deps.storage, CONTRACT_NAME, CONTRACT_VERSION)?;
+
+    CONFIG.save(
+        deps.storage,
+        &Config {
+            terrapexc_factory: deps.api.addr_canonicalize(&msg.terrapexc_factory)?,
         },
     )?;
 
