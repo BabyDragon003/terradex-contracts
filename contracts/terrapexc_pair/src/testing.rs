@@ -1,4 +1,3 @@
-use crate::contract::{
     assert_max_spread, execute, instantiate, query_pair_info, query_pool, query_reverse_simulation,
     query_simulation, reply,
 };
