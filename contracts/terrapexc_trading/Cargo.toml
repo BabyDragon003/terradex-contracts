@@ -1,3 +1,4 @@
+[package]
 authors = ["TERRAPEXC Labs."]
 description = "A Terrapexc Trading contract"
 edition = "2021"
